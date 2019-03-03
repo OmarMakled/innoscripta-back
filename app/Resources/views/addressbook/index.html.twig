@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="card-columns">
+    {% for addressBook in addressBooks %}
+        <div class="card">
+        	{% if addressBook.photo %}
+            <form 
+            	action="{{ path('addressbook_delete_photo', {'id': addressBook.id}) }}" 
+            	method="post"
+				class="position-absolute"
+            	>
+                <input type="hidden" name="_token" value="{{csrf_token(addressBook.id)}}">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="button" onclick="App.confirmSubmit(this)" class="btn btn-sm btn-danger"> Delete Photo</button>
+            </form>
+            <img src="{{ asset('/uploads/' ~ addressBook.photo) }}" class="card-img-top" />
+        	{% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{addressBook.firstname}} {{addressBook.lastname}}</h5>
+                <p class="card-text">
+                    <ul class="list-unstyled">
+                        <li>{{addressBook.birthday|date("m/d/Y")}}</li>
+                        <li>{{addressBook.phone}}</li>
+                        <li>{{addressBook.email}}</li>
+                        <li>{{addressBook.country}} - {{addressBook.address}} - {{addressBook.zip}}</li>
+                    </ul>
+                </p>
+                <a href="{{ path('addressbook_edit', {'id': addressBook.id}) }}" class="btn btn-block btn-outline-info btn-sm mb-2">Edit</a>
+                <form action="{{ path('addressbook_delete', {'id': addressBook.id}) }}" method="post">
+                    <input type="hidden" name="_token" value="{{csrf_token(addressBook.id)}}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="button" onclick="App.confirmSubmit(this)" class="btn btn-block btn-outline-danger btn-sm">Delete</button>
+                </form>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" href="{{asset('/build/app.css')}}">
+</head>
+
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">
+            <a href="https://www.lillydoo.com/" target="_blank" class="navbar-brand"><img src="/lillydoo.png"></a></a>
+        </h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="{{path('homepage')}}">Home</a>
+            <a class="p-2 text-dark" href="{{path('addressbook')}}">Address Book</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="{{path('addressbook_create')}}">Write !</a>
+    </div>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    <script src="{{asset('/build/runtime.js')}}"></script>
+    <script src="{{asset('/build/app.js')}}"></script>
+    {% set alert = app.session.flashbag.get('alert') %}
+    {% if alert %}
+    <script>
+    App.alert({{ alert|json_encode|raw }})
+    </script>
+    {% endif %}
+</body>
+
+</html>

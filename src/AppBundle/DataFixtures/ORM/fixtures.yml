@@ -1,0 +1,10 @@
+AppBundle\Entity\Company:
+    company{1..10}:
+        name: <name()>
+        address: <address()>
+
+AppBundle\Entity\Bill:
+    bill{1..10}:
+        company: '@company*'
+        amount: <randomFloat(2,2,1000)>
+        created_at: <dateTime()>

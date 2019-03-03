@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1 class="display-4">What ?!</h1>
+<p>
+    You got <strong class="text-danger">({{ status_code }})</strong> <strong>{{ status_text }}</strong> !
+</p>
+<p>
+    Don't worry <a href="{{ path('homepage') }}">return to the homepage</a>.
+</p>
+{% endblock %}
